@@ -404,13 +404,15 @@ function r1Result() {
 
 function r2Intro() {
   const box = el('div', { class: 'intro' });
+  const remixLine = el('p', { class: 'hint', style: 'color:var(--cyan);font-family:var(--term);font-size:19px' },
+    '> alle identitäten wurden neu gewürfelt. du bist jetzt: ' + state.you.name);
   const botLine = state.botJoined
     ? el('p', { class: 'hint', style: 'color:var(--green);font-family:var(--term);font-size:19px' },
         '> NULL hat sich unter falschem namen unter euch gemischt. es spielt jetzt selbst mit.')
     : null;
   const panel = el('div', { class: 'panel' },
     el('div', { class: 'eyebrow', style: 'color:var(--magenta)' }, '// \u26a0 systemmeldung'),
-    box, botLine,
+    box, remixLine, botLine,
     hostBtns(el('button', { class: 'btn btn-danger', onclick: () => host('r2Begin') }, 'Initialisieren \u2192')));
   if (!introTyped) {
     introTyped = true;
@@ -457,15 +459,16 @@ function r2Result() {
 // Aufdroeselung am Ende: wer hat wann fuer wen gestimmt, was hat die KI nachts gewaehlt
 function protocol() {
   if (!state.history || !state.history.length) return null;
-  const kiNames = new Set((state.roles || []).filter(r => r.role === 'ki').map(r => r.name));
-  const tagName = (n) => kiNames.has(n) ? n + ' \ud83e\udd16' : n;
+  const mark = (n, ki) => ki ? n + ' \ud83e\udd16' : n;
   let q1 = 0;
   const blocks = state.history.map(h => {
     const head = h.runde === 1 ? `Runde 1 \u00b7 Frage ${++q1}` : 'Runde 2';
     return el('div', { class: 'proto-block' },
       el('div', { class: 'proto-head' }, head + ' \u2014 ' + h.frage),
-      ...h.tag.map(v => el('div', { class: 'proto-line' }, `${tagName(v.von)} \u2192 ${tagName(v.fuer)}`)),
-      h.tagRaus ? el('div', { class: 'proto-line out' }, '\u2715 raus: ' + tagName(h.tagRaus)) : el('div', { class: 'proto-line' }, 'niemand raus'),
+      ...h.tag.map(v => el('div', { class: 'proto-line' }, `${mark(v.von, v.vonKi)} \u2192 ${mark(v.fuer, v.fuerKi)}`)),
+      (h.tagRaus && h.tagRaus.length)
+        ? el('div', { class: 'proto-line out' }, '\u2715 raus: ' + h.tagRaus.map(o => mark(o.name, o.ki)).join(', '))
+        : el('div', { class: 'proto-line' }, 'niemand raus'),
       ...h.nacht.map(v => el('div', { class: 'proto-line night' }, `\ud83c\udf19 ${v.von} \ud83e\udd16 l\u00f6schte \u2192 ${v.fuer}`)),
       h.nachtRaus ? el('div', { class: 'proto-line out night' }, '\u2715 nachts verschwunden: ' + h.nachtRaus) : null);
   });

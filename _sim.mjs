@@ -105,7 +105,14 @@ while (true) {
   if (round > 10) throw new Error('R1 endet nicht');
 }
 
+const namesBefore = new Map(host().state.players.map(p => [p.id, p.name]));
 host().send({ type: 'host', action: 'startR2' }); await waitPhase('r2_intro');
+{
+  const kept = host().state.players.filter(p => namesBefore.get(p.id) === p.name);
+  assert(kept.length === 0, 'R2: niemand darf seinen alten Namen behalten (behalten: ' + kept.map(p => p.name) + ')');
+  const uniq = new Set(host().state.players.map(p => p.name));
+  assert(uniq.size === host().state.players.length, 'R2: Namen muessen eindeutig sein');
+}
 if (MODE === 'chat') {
   assert(host().state.players.length === N + 1, 'Chat-Modus: NULL sollte in R2 als Bot-Sitz beitreten');
   assert(host().state.botJoined, 'Chat-Modus: botJoined-Hinweis fehlt im Intro');
@@ -133,6 +140,8 @@ log('\nGAMEOVER standings:', host().state.standings);
 log('Protokoll-Eintraege:', (host().state.history || []).length);
 assert((host().state.history || []).length > 0, 'Protokoll sollte am Ende da sein');
 assert(host().state.history.some(h => h.runde === 1 && h.tag.length), 'R1-Stimmen fehlen im Protokoll');
+assert(host().state.history.every(h => h.tag.every(v => typeof v.vonKi === 'boolean' || v.vonKi === undefined)), 'Protokoll-Format kaputt');
+assert(host().state.history.some(h => h.tag.some(v => v.fuerKi || v.vonKi)), 'KI-Markierung fehlt im Protokoll');
 assert(host().state.history.some(h => h.runde === 1 && h.nacht.length) || !host().state.history.some(h => h.nachtRaus), 'Nacht-Wahlen fehlen im Protokoll');
 assert(host().state.roles?.length, 'Rollen fehlen im Gameover');
 if (MODE === 'bot') assert(host().state.standings.some(s => s.isBot), 'Endstand sollte den Bot markieren');

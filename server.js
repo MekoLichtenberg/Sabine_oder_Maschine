@@ -437,16 +437,20 @@ function topByVotes(votesMap) {
 }
 
 // Protokoll: wer hat fuer wen gestimmt (Namen, damit es am Ende lesbar ist)
+// (mit KI-Flag zum Zeitpunkt der Wahl - Namen werden in Runde 2 neu gewuerfelt,
+//  darum kann das Protokoll nicht spaeter ueber Namen zuordnen)
+const isKiSeat = (p) => p?.role === 'ki' || p?.isBot;
 const voteNames = (room, map) => [...map.entries()].map(([v, t]) => ({
-  von: room.players.get(v)?.name || '?', fuer: room.players.get(t)?.name || '?'
+  von: room.players.get(v)?.name || '?', vonKi: isKiSeat(room.players.get(v)),
+  fuer: room.players.get(t)?.name || '?', fuerKi: isKiSeat(room.players.get(t))
 }));
 
 function resolveDay(room) {
-  room.curEntry = { runde: 1, frage: room.question, tag: voteNames(room, room.votes), tagRaus: null, nacht: [], nachtRaus: null };
+  room.curEntry = { runde: 1, frage: room.question, tag: voteNames(room, room.votes), tagRaus: [], nacht: [], nachtRaus: null };
   const top = topByVotes(room.votes);
   if (top.length) {
     const out = room.players.get(pick(top));
-    if (out) { out.alive = false; room.dayOut = { name: out.name, role: out.role, isBot: out.isBot }; room.curEntry.tagRaus = out.name; }
+    if (out) { out.alive = false; room.dayOut = { name: out.name, role: out.role, isBot: out.isBot }; room.curEntry.tagRaus = [{ name: out.name, ki: isKiSeat(out) }]; }
   }
   room.phase = 'r1_night';
   room.kiTargets = new Map();
@@ -473,6 +477,18 @@ function finishR1Round(room) {
   broadcast(room);
 }
 
+// Runde 2: alle bekommen neue Namen (versteckt auch, dass NULL im Chat-Modus neu dazukommt)
+function remixNames(room) {
+  const ps = shuffle([...room.players.values()]);
+  let pool = shuffle(DATA.names);
+  for (let t = 0; t < 50; t++) {
+    if (ps.every((p, i) => pool[i % pool.length] !== p.name)) break; // niemand behaelt seinen alten Namen
+    pool = shuffle(DATA.names);
+  }
+  ps.forEach((p, i) => { p.name = pool[i % pool.length] + (i >= pool.length ? ' ' + (Math.floor(i / pool.length) + 1) : ''); });
+  room.nameBag = shuffle(DATA.names.filter(n => !ps.some(p => p.name === n)));
+}
+
 // --- Runde 2 ---
 function startR2(room) {
   room.round = 2;
@@ -483,6 +499,7 @@ function startR2(room) {
     room.botJoinedName = nb.name;
   }
   for (const p of room.players.values()) { p.alive = true; p.role = 'mensch'; }
+  remixNames(room);
   room.phase = 'r2_intro';
   room.winner = null;
   room.prefetch = null;
@@ -515,7 +532,7 @@ function resolveR2(room) {
   }
   room.r2Out = [];
   for (const { p, v } of out) { p.alive = false; room.r2Out.push({ name: p.name, votes: v }); }
-  room.history.push({ runde: 2, frage: room.question, tag: voteNames(room, room.votes), tagRaus: room.r2Out.map(o => o.name).join(', ') || null, nacht: [], nachtRaus: null });
+  room.history.push({ runde: 2, frage: room.question, tag: voteNames(room, room.votes), tagRaus: out.map(x => ({ name: x.p.name, ki: isKiSeat(x.p) })), nacht: [], nachtRaus: null });
   const remaining = living(room);
   if (remaining.length <= 1) {
     room.winner = remaining[0]?.name || null;
