@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Maschine oder Sabine ADMIN</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header class="top">
+      <h1>Admin <span class="badge">clean MVP</span></h1>
+      <p class="muted">Steuerung pro Session-Code (Room)</p>
+    </header>
+
+    <section class="card">
+      <div class="row">
+        <label>Session-Code</label>
+        <input id="code" maxlength="8" placeholder="ABCD" />
+      </div>
+
+      <div class="row admin-meta">
+        <div>Session: <strong id="adminSessionStatus">—</strong></div>
+        <div>Players: <strong id="adminPlayerCount">0</strong></div>
+        <div>Status: <strong id="adminPhase">Waiting</strong></div>
+      </div>
+
+      <div class="btns">
+        <button id="btnStartDetectAI" class="btn-primary">Start Modus A (KI entlarven)</button>
+        <button id="btnStartDetectHuman" class="btn-primary">Start Modus B (Menschen verstecken)</button>
+      </div>
+
+      <div class="btns">
+        <button id="btnReveal">Reveal</button>
+        <button id="btnVoting">Voting</button>
+        <button id="btnResolve">Resolve</button>
+      </div>
+
+      <div class="row">
+        <label>Rollen (Admin sichtbar)</label>
+        <div class="admin-role-list" id="adminRoleList"></div>
+      </div>
+
+      <div class="muted" id="adminError"></div>
+    </section>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

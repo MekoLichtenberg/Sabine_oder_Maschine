@@ -1,0 +1,332 @@
+[
+  {
+    "id": "q01",
+    "prompt": "Was war heute dein Highlight?",
+    "botAnswers": [
+      "Mein Highlight war ein kleiner Moment, der meinen Tag überraschend besser gemacht hat.",
+      "Heute war’s am besten, als ich gemerkt hab: Ich komm echt gut durch den Tag.",
+      "Ein winziger Erfolg, aber genau solche Momente sind irgendwie die wichtigsten.",
+      "Mein Highlight war, dass ich kurz richtig Ruhe im Kopf hatte.",
+      "Wenn ich’s runterbreche: Heute war gut, weil ein Ding einfach geklappt hat."
+    ]
+  },
+  {
+    "id": "q02",
+    "prompt": "Was war heute dein Lowlight?",
+    "botAnswers": [
+      "Mein Lowlight war ein Moment, wo alles kurz zu viel wurde.",
+      "Heute hat mich etwas genervt, obwohl es objektiv gar nicht so groß war.",
+      "Ein kleiner Rückschlag, aber ich versuche das als Feedback zu sehen.",
+      "Ich hatte einen Moment, wo ich mich kurz missverstanden gefühlt hab.",
+      "Lowlight: Stress-Spike, danach ging’s wieder, aber der Peak war unnötig."
+    ]
+  },
+  {
+    "id": "q03",
+    "prompt": "Was würdest du jetzt gern essen?",
+    "botAnswers": [
+      "Irgendwas Warmes, Einfaches, das sofort comfort gibt.",
+      "Ich würd jetzt was nehmen, was schnell Energie liefert und trotzdem nice schmeckt.",
+      "Am liebsten was, das crunchy UND soft ist, so perfekte Balance.",
+      "Ich tendiere zu etwas, das mich beruhigt, nicht nur satt macht.",
+      "Ehrlich: irgendwas, das mich kurz glücklich macht, ohne nachzudenken."
+    ]
+  },
+  {
+    "id": "q04",
+    "prompt": "Was ist dein “Comfort”-Getränk?",
+    "botAnswers": [
+      "Ein Getränk, das sich anfühlt wie Pause drücken, egal wie der Tag war.",
+      "Bei mir ist’s was Warmes, weil das sofort das Nervensystem runterfährt.",
+      "Comfort ist für mich ein Klassiker, der nie enttäuscht.",
+      "Ich mag Getränke, die nach “alles ist ok” schmecken, auch wenn’s nicht stimmt.",
+      "Was Simples, kein fancy Zeug, Hauptsache zuverlässig."
+    ]
+  },
+  {
+    "id": "q05",
+    "prompt": "Was war dein letzter Ohrwurm?",
+    "botAnswers": [
+      "Ein Song, der sich wie ein Loop in meinem Kopf festgesetzt hat.",
+      "So ein Beat, der aus irgendeinem Grund perfekt hängen bleibt.",
+      "Ich hab gerade so einen Ohrwurm, der mich gleichzeitig nervt und motiviert.",
+      "Ein Refrain, der zu catchy ist, als hätte ihn jemand dafür optimiert.",
+      "Ein Track, der bei 10 Sekunden schon sagt: ich wohne jetzt hier."
+    ]
+  },
+  {
+    "id": "q06",
+    "prompt": "Welche App nutzt du am meisten?",
+    "botAnswers": [
+      "Die App, die ich automatisch öffne, ohne bewusst zu entscheiden.",
+      "Wahrscheinlich die, die am meisten Dopamin pro Sekunde liefert.",
+      "Die eine App, die alles frisst: Zeit, Fokus und trotzdem bleib ich drin.",
+      "Die App, die am besten zu meinen Routinen passt, ob ich will oder nicht.",
+      "Die, die mir am meisten das Gefühl gibt, connected zu sein."
+    ]
+  },
+  {
+    "id": "q07",
+    "prompt": "Was ist ein Film/Spiel, den du immer wieder könntest?",
+    "botAnswers": [
+      "Eins, das wie ein sicherer Ort wirkt, weil man schon weiß, was passiert.",
+      "Ein Klassiker, der immer noch funktioniert, egal wie oft man ihn sieht/spielt.",
+      "Das Ding ist so gut, dass Wiederholen eher Ritual als Wiederholung ist.",
+      "Eins, das mich jedes Mal in denselben Vibe bringt, zuverlässig.",
+      "Ich hab da eins, das ich nicht mal “besser” erklären muss, es klickt einfach."
+    ]
+  },
+  {
+    "id": "q08",
+    "prompt": "Was würdest du tun, wenn du heute frei hättest?",
+    "botAnswers": [
+      "Ich würde erst mal runterfahren und dann spontan entscheiden, statt zu planen.",
+      "Wahrscheinlich irgendwas Kreatives, weil das meinen Kopf am besten resetet.",
+      "Ich würd mir einen Tag bauen, der mehr Energie gibt als nimmt.",
+      "Erst ausruhen, dann ein Mini-Abenteuer, so ein perfekter Mix.",
+      "Ich würd alles vermeiden, was sich nach Pflicht anfühlt."
+    ]
+  },
+  {
+    "id": "q09",
+    "prompt": "Was ist dein Lieblingsgeruch?",
+    "botAnswers": [
+      "Ein Geruch, der sofort Erinnerungen triggert, ohne dass ich’s steuern kann.",
+      "Ich mag Gerüche, die nach Zuhause wirken, auch wenn’s nur ein Moment ist.",
+      "Etwas, das instant beruhigt, als wäre es ein Shortcut fürs Gehirn.",
+      "Ein Geruch, der sauber und warm gleichzeitig ist, schwer zu toppen.",
+      "So ein Duft, der sagt: jetzt ist alles kurz sicher."
+    ]
+  },
+  {
+    "id": "q10",
+    "prompt": "Was war das Letzte, worüber du gelacht hast?",
+    "botAnswers": [
+      "Über etwas völlig Unnötiges, aber genau das hat’s so gut gemacht.",
+      "So ein Moment, wo man merkt: Humor ist einfach ein Überlebens-Tool.",
+      "Ein kleiner Fail, der im Rückblick sofort lustig war.",
+      "Ein Satz, der so random war, dass mein Gehirn kurz rebooten musste.",
+      "Ich hab gelacht, weil es perfekt timing-mäßig war, fast zu perfekt."
+    ]
+  },
+  {
+    "id": "q11",
+    "prompt": "Was ist ein kleiner Skill, den du gerne hättest?",
+    "botAnswers": [
+      "Ich hätte gern einen Skill, der Alltag leichter macht, ohne viel Aufwand.",
+      "So ein Mini-Skill, der sich wie ein Cheatcode anfühlt.",
+      "Ich würde gern etwas können, das mich unabhängiger macht, Schritt für Schritt.",
+      "Ein Skill, der sofort Selbstvertrauen gibt, auch wenn er klein ist.",
+      "Ich hätte gern diese eine Fähigkeit, die Menschen “einfach so” zu haben scheinen."
+    ]
+  },
+  {
+    "id": "q12",
+    "prompt": "Was ist eine Sache, die du wirklich gut kannst?",
+    "botAnswers": [
+      "Ich kann gut Muster erkennen und daraus schnell eine Lösung bauen.",
+      "Ich bin gut darin, ruhig zu bleiben, wenn andere schon Stress schieben.",
+      "Ich kann Dinge erklären, bis sie wirklich klick machen.",
+      "Ich kann mich ziemlich gut anpassen, ohne mich komplett zu verlieren.",
+      "Ich bin gut darin, aus Chaos eine klare Reihenfolge zu machen."
+    ]
+  },
+  {
+    "id": "q13",
+    "prompt": "Was findest du gerade anstrengend?",
+    "botAnswers": [
+      "Gerade ist anstrengend, dass mein Kopf nie ganz “aus” geht.",
+      "Mich stresst, dass zu viele Dinge gleichzeitig Aufmerksamkeit wollen.",
+      "Es ist anstrengend, ständig produktiv wirken zu müssen.",
+      "Ich merke, dass mir gerade Pause fehlt, nicht Motivation.",
+      "Es ist dieses Gefühl von Dauer-Input, als wäre ich immer online."
+    ]
+  },
+  {
+    "id": "q14",
+    "prompt": "Was hilft dir, wenn du gestresst bist?",
+    "botAnswers": [
+      "Mir hilft ein kurzer Reset: atmen, trinken, ein Schritt nach dem anderen.",
+      "Ich mache’s klein: eine Sache jetzt, nicht zehn Sachen später.",
+      "Wenn’s stressig ist, hilft mir Struktur, auch wenn’s nur minimal ist.",
+      "Ich versuche erst das Nervensystem zu beruhigen, dann erst Probleme zu lösen.",
+      "Ehrlich: jemand, der kurz zuhört, hilft manchmal mehr als ein Plan."
+    ]
+  },
+  {
+    "id": "q15",
+    "prompt": "Was ist dein “Safe Place” (als Idee, nicht Ort)?",
+    "botAnswers": [
+      "Mein Safe Place ist ein Zustand: kein Druck, keine Bewertung, nur kurz sein.",
+      "Safe Place heißt für mich: Kontrolle über Tempo und Input.",
+      "Es ist dieses Gefühl, verstanden zu werden, ohne viel erklären zu müssen.",
+      "Mein Safe Place ist Ruhe im Kopf, selbst wenn’s außen laut ist.",
+      "Safe Place ist, wenn ich nicht performen muss, sondern einfach existiere."
+    ]
+  },
+  {
+    "id": "q16",
+    "prompt": "Was ist dein Lieblingssound?",
+    "botAnswers": [
+      "Ein Sound, der sich wie ein weiches Blanket fürs Gehirn anfühlt.",
+      "Ich mag Sounds, die rhythmisch sind, weil mein Kopf dann sortiert.",
+      "Ein Sound, der sofort Nostalgie triggert, ohne Vorwarnung.",
+      "Ich feier Sounds, die “clean” sind, so satisfying.",
+      "Ein Geräusch, das mich sofort runterregelt, fast wie ein Schalter."
+    ]
+  },
+  {
+    "id": "q17",
+    "prompt": "Was ist dein Lieblingswetter?",
+    "botAnswers": [
+      "Ich mag Wetter, das alles leiser macht, so als würde die Welt dimmen.",
+      "Am besten ist’s, wenn es hell ist, aber nicht aggressiv.",
+      "Ich mag dieses Wetter, wo man atmet und denkt: ok, geht doch.",
+      "Lieblingswetter ist für mich Komfort + Bewegung, nicht extrem.",
+      "So ein Wetter, das wie ein Filter wirkt: weniger Stress, mehr Fokus."
+    ]
+  },
+  {
+    "id": "q18",
+    "prompt": "Was ist ein Hobby, das du mal ausprobieren willst?",
+    "botAnswers": [
+      "Ich will ein Hobby, das mich in Flow bringt, ohne ständig bewertet zu werden.",
+      "Etwas, das kreativ ist, aber nicht so perfekt sein muss.",
+      "Ein Hobby, das mich überrascht, weil ich nicht sofort gut darin bin.",
+      "Ich hätte gern was, das offline gut tut, als Gegenpol.",
+      "Ein Hobby, das gleichzeitig skillt und entspannt, so best of both."
+    ]
+  },
+  {
+    "id": "q19",
+    "prompt": "Was ist eine Sache, die du früher gefeiert hast und heute nicht mehr?",
+    "botAnswers": [
+      "Früher war’s cool, heute fühlt es sich eher nach Zeitfresser an.",
+      "Ich mochte es früher, aber jetzt passt es nicht mehr zu meinem Vibe.",
+      "Heute brauche ich mehr Sinn als nur Hype.",
+      "Ich feier’s nicht mehr, weil ich gemerkt hab, wie viel Energie es kostet.",
+      "Früher war’s default, heute ist’s eher: warum eigentlich?"
+    ]
+  },
+  {
+    "id": "q20",
+    "prompt": "Was ist eine Regel, die du heimlich unfair findest?",
+    "botAnswers": [
+      "Unfair ist für mich, wenn Regeln gleich klingen, aber nicht gleich gelten.",
+      "Ich finde Regeln unfair, die nur Kontrolle sind, nicht Sicherheit.",
+      "Manche Regeln sind halt Tradition, aber Tradition ist kein Argument.",
+      "Unfair ist, wenn Fehler härter bestraft werden als Absicht.",
+      "Ich finde es unfair, wenn man Leistung misst, aber Umstände ignoriert."
+    ]
+  },
+  {
+    "id": "q21",
+    "prompt": "Was ist eine Sache, die dich sofort nervt?",
+    "botAnswers": [
+      "Mich nervt, wenn Leute so tun, als wäre alles super logisch, obwohl’s es nicht ist.",
+      "Sofort nervig: unnötige Lautstärke, unnötige Dramatik.",
+      "Ich kann nicht, wenn jemand null zuhört, aber dauernd reagiert.",
+      "Mich nervt, wenn Dinge kompliziert gemacht werden, nur damit sie wichtig wirken.",
+      "Sofort nervig: Fake-Confidence ohne echtes Können dahinter."
+    ]
+  },
+  {
+    "id": "q22",
+    "prompt": "Was ist eine Sache, die dich sofort beruhigt?",
+    "botAnswers": [
+      "Mich beruhigt etwas Verlässliches, wie ein kleines Ritual.",
+      "Wenn es ruhig wird und ich wieder mein eigenes Tempo fühle, ist alles besser.",
+      "Eine klare Ansage beruhigt mich mehr als “wird schon”.",
+      "Ich beruhige mich, wenn ich merke: ich muss das nicht allein tragen.",
+      "Sofort beruhigend: Struktur, Wärme, und kein Druck."
+    ]
+  },
+  {
+    "id": "q23",
+    "prompt": "Wenn du ein Tier wärst, welches wärst du heute?",
+    "botAnswers": [
+      "Heute wäre ich eine Katze: observant, gemütlich, aber mit klaren Grenzen.",
+      "Ich wäre ein Fuchs: bisschen schlau, bisschen chaotic, aber irgendwie smooth.",
+      "Ich wäre ein Hund: loyal, energiegeladen, sofort im Teammodus.",
+      "Ich wäre ein Faultier: langsamer, aber konsequent im Chill.",
+      "Ich wäre ein Rabe: gucken, merken, überlegen, dann handeln."
+    ]
+  },
+  {
+    "id": "q24",
+    "prompt": "Wenn du eine Superkraft hättest, welche wäre’s?",
+    "botAnswers": [
+      "Ich hätte gern Zeit anhalten, nur um kurz aufzuholen.",
+      "Teleport wäre perfekt: weniger Umwege, mehr Leben.",
+      "Gedanken beruhigen wäre die beste Superkraft, ehrlich.",
+      "Unsichtbarkeit, aber nur als Pause-Feature, nicht für Chaos.",
+      "Ich würde gern instantly lernen können, ohne Frust-Phase."
+    ]
+  },
+  {
+    "id": "q25",
+    "prompt": "Was ist dein “NPC-Satz”, den du oft sagst?",
+    "botAnswers": [
+      "Mein NPC-Satz ist: “Passt schon”, auch wenn’s eigentlich nicht passt.",
+      "Ich sag zu oft: “Ganz kurz”, und dann dauert’s ewig.",
+      "Mein Klassiker ist: “Ich mach das gleich”, und mein Gehirn so: später.",
+      "Ich sag oft: “Ja, safe”, ohne safe zu sein.",
+      "NPC-mode: “Alles gut”, während innerlich Alarm ist."
+    ]
+  },
+  {
+    "id": "q26",
+    "prompt": "Was ist dein Lieblings-Emoji und warum?",
+    "botAnswers": [
+      "Mein Lieblings-Emoji ist das, das Emotion zeigt, ohne viel erklären zu müssen.",
+      "Ich mag Emojis, die Stimmung tragen, nicht nur Deko sind.",
+      "Mein Emoji ist eins, das gleichzeitig freundlich und leicht ironisch ist.",
+      "Ich nehm das Emoji, das mich am besten repräsentiert: chill, aber wachsam.",
+      "Ich mag Emojis, die wie ein Softener wirken, damit Text nicht hart klingt."
+    ]
+  },
+  {
+    "id": "q27",
+    "prompt": "Was ist das Mutigste, was du mal gemacht hast (klein reicht)?",
+    "botAnswers": [
+      "Mutig war, etwas zu sagen, obwohl ich Angst vor der Reaktion hatte.",
+      "Ich war mutig, als ich Hilfe angenommen hab, statt alles allein zu machen.",
+      "Mut war für mich, etwas zu versuchen, obwohl ich’s nicht perfekt konnte.",
+      "Kleiner Mut: Grenzen setzen, ohne mich zu entschuldigen.",
+      "Mutig war, mich zu zeigen, obwohl’s einfacher gewesen wäre zu verschwinden."
+    ]
+  },
+  {
+    "id": "q28",
+    "prompt": "Was ist dein perfekter Samstag?",
+    "botAnswers": [
+      "Perfekter Samstag: kein Wecker, gutes Essen, und nur Dinge, die sich leicht anfühlen.",
+      "Ich brauch am Samstag einen Mix aus Pause und einem kleinen Abenteuer.",
+      "Perfekt ist, wenn ich nicht hetze und trotzdem am Ende happy bin.",
+      "Ein Samstag, der mir Energie gibt, statt sie zu klauen.",
+      "Samstag ist perfekt, wenn ich am Abend denke: das war mein Tempo."
+    ]
+  },
+  {
+    "id": "q29",
+    "prompt": "Was ist ein Song, der dich instant in Stimmung bringt?",
+    "botAnswers": [
+      "Ein Song, der meine Stimmung in 5 Sekunden umcodet, ganz automatisch.",
+      "Ich hab so einen Track, der klingt wie “jetzt geht’s los”.",
+      "Ein Lied, das genau die richtige Energie hat, ohne zu stressen.",
+      "Ein Song, der so catchy ist, dass mein Körper vorher reagiert als mein Kopf.",
+      "Der Track ist wie ein Mood-Button, ich drück den und zack."
+    ]
+  },
+  {
+    "id": "q30",
+    "prompt": "Was ist eine Sache, die du dir für morgen vornimmst?",
+    "botAnswers": [
+      "Morgen nehme ich mir vor, eine Sache sauber zu machen statt zehn halb.",
+      "Ich will morgen kurz Pause einplanen, nicht nur durchpowern.",
+      "Ich nehme mir vor, freundlich zu mir zu sein, auch wenn’s nicht perfekt läuft.",
+      "Morgen will ich ein Mini-Ziel schaffen, damit ich Momentum hab.",
+      "Ich nehme mir vor: weniger scrollen, mehr echtes Leben."
+    ]
+  }
+]

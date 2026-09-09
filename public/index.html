@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Maschine oder Sabine</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="site-bar">
+    <div class="bar-inner">
+      <span class="brand">Maschine oder Sabine</span>
+      <button id="themeToggle" class="ghost">Light</button>
+    </div>
+  </div>
+  <main class="wrap">
+    <header class="top">
+      <h1>Wer ist die KI?<span class="badge">v 1.0</span></h1>
+      <div class="status-line">
+        <span class="dot" id="dot"></span>
+        <span id="status">Nicht verbunden</span>
+        <span id="roomStatus" class="muted"></span>
+        <span id="playerCount" class="muted"></span>
+      </div>
+      <div id="promptAIBanner" class="prompt-ai-banner hidden">Du bekommst Prompt‑Vorschläge🤖</div>
+    </header>
+
+    <section id="joinScreen" class="card">
+      <h2>Beitreten</h2>
+      <div class="row">
+        <label>Name</label>
+        <div class="muted">Dein Name wird zufällig vergeben.</div>
+      </div>
+      <div class="row">
+        <label>Session-Code</label>
+        <input id="code" maxlength="8" placeholder="ABCD" />
+      </div>
+
+      <div class="row">
+        <label>Avatar</label>
+        <div class="avatars" id="avatars"></div>
+      </div>
+
+      <button id="joinBtn">Starten</button>
+      <p class="hint" id="joinHint"></p>
+    </section>
+
+    <section id="lobbyScreen" class="card hidden">
+      <div class="lobby-top">
+        <div class="lobby-me" id="meBadge"></div>
+        <div class="lobby-meta">
+          <div class="lobby-label">Session</div>
+          <div class="lobby-code" id="lobbyCode">—</div>
+        </div>
+      </div>
+      <div class="lobby-status" id="lobbyStatus">Lobby beigetreten — warte auf nächste Frage…</div>
+      <div class="lobby-count">Spieler: <span id="lobbyCount">0</span></div>
+      <div class="lobby-list" id="lobbyPlayers"></div>
+    </section>
+
+    <section id="game" class="card hidden">
+      <div class="phase">
+        <div><strong>Phase:</strong> <span id="phase">-</span></div>
+        <div><strong>Runde:</strong> <span id="round">0</span></div>
+      </div>
+
+      <h2 id="prompt">Warte…</h2>
+
+      <div id="promptPicker" class="panel hidden">
+        <div class="prompt-picker-title">Wähle die Frage für alle</div>
+        <div class="prompt-picker-hint" id="promptPickerHint"></div>
+        <div class="prompt-options" id="promptOptions"></div>
+      </div>
+
+      <div id="answerBox" class="panel hidden">
+        <div id="aiPanel" class="ai-panel hidden">
+          <div class="ai-title">Wähle eine Antwort.</div>
+          <div id="aiOptions" class="ai-options"></div>
+          <div class="ai-hint">Klick eine Option und sende.</div>
+        </div>
+        <textarea id="answer" maxlength="150" placeholder="1 Satz, max 150 Zeichen"></textarea>
+        <button id="sendAnswer">Antwort senden</button>
+        <div class="muted" id="answerInfo"></div>
+      </div>
+
+      <div id="revealBox" class="panel hidden">
+        <h3>Antworten</h3>
+        <div id="revealList" class="list"></div>
+      </div>
+
+      <div id="voteBox" class="panel hidden">
+        <h3>Vote: Wer ist die KI?</h3>
+        <div id="voteList" class="list"></div>
+        <div class="muted" id="voteInfo"></div>
+      </div>
+
+      <div id="resultBox" class="panel hidden">
+        <h3>Ergebnis</h3>
+        <div id="resultText"></div>
+      </div>
+    </section>
+
+    <footer class="foot muted">
+      Erst alle beitreten, dann startet der Admin die Runde.
+    </footer>
+  </main>
+
+  <div id="warningToast" class="hidden" role="status" aria-live="polite"></div>
+  <div id="tiebreakBanner" class="hidden">LIGHTNING ROUND</div>
+  <div id="tiebreakTimer" class="hidden"></div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+  <div id="overlay" class="overlay hidden" aria-hidden="true">
+    <div class="overlay-inner">
+      <div class="overlay-tag" id="overlayTag"></div>
+      <div class="overlay-title" id="overlayTitle"></div>
+      <div class="overlay-sub" id="overlaySub"></div>
+    </div>
+    <div class="overlay-scanlines"></div>
+  </div>
+  <div id="systemError" class="system-error hidden" aria-hidden="true">
+    <div class="system-error__box">
+      <div class="system-error__title">!!! SYSTEM ERROR !!!</div>
+      <div class="system-error__sub">Identitäten werden neu synchronisiert…</div>
+    </div>
+  </div>
+  <div id="modeTransition" class="overlay hidden" aria-hidden="true">
+    <div class="overlay__box">
+      <div class="overlay__title">SYSTEMSTATUS: KOMPROMITTIERT</div>
+      <div class="overlay__line">AUTOMATIK AKTIV.</div>
+      <div class="overlay__line">VERHALTEN: KI.</div>
+      <div class="overlay__line">BEDROHUNG: UNKLAR.</div>
+      <div class="overlay__line">ZIEL: RUNDE <span id="modeTargetRound">?</span>.</div>
+    </div>
+  </div>
+</body>
+</html>
