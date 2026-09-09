@@ -23,7 +23,7 @@ const LLM_DEFAULT = {
 };
 const LLM_TIMEOUT = Number(process.env.LLM_TIMEOUT_MS || 60000);
 const LLM_ANSWERS = Math.max(2, Math.min(5, Number(process.env.LLM_ANSWERS || 3)));   // wie viele Vorschlaege die KI-Rolle bekommt
-const LLM_MAX_TOKENS = Number(process.env.LLM_MAX_TOKENS || 120);                       // Token-Budget pro Anfrage (klein = schnell)
+const LLM_MAX_TOKENS = Number(process.env.LLM_MAX_TOKENS || 160);                       // Token-Budget pro Anfrage (klein = schnell)
 const LLM_MAX_WORDS = Number(process.env.LLM_MAX_WORDS || 12);                          // Zielaenge einer Antwort in Woertern
 // Bot-Sitz: wie lange die "KI spielt selbst" scheinbar tippt/ueberlegt (damit sie nicht sofort fertig ist)
 const BOT_DELAY = [Number(process.env.BOT_MIN_DELAY_MS || 6000), Number(process.env.BOT_MAX_DELAY_MS || 20000)];
@@ -234,19 +234,25 @@ async function testLlm(cfg) {
   const j = await fetchJson(cfg.url + '/v1/models', { headers: llmHeaders(cfg) }, 8000);
   return (j?.data || j?.models || []).map(m => m.id || m.name || m.model).filter(Boolean);
 }
+const LLM_LOWERCASE = process.env.LLM_LOWERCASE !== '0'; // Antworten klein schreiben (wie am Handy getippt)
 const KI_SYSTEM = process.env.LLM_SYSTEM_PROMPT ||
   `Du bist ein deutscher Jugendlicher (15) und tippst am Handy eine schnelle Antwort in einem Partyspiel. ` +
-  `Gib ${LLM_ANSWERS} verschiedene Antworten, jede in einer eigenen Zeile, jede hoechstens ${LLM_MAX_WORDS} Woerter. ` +
-  `Locker, ehrlich, konkret, alles klein geschrieben, ruhig ein kleiner Tippfehler oder ein "lol". ` +
-  `Keine Nummerierung, keine Anfuehrungszeichen, keine Emojis, keine Erklaerung. Nur die Zeilen, auf Deutsch.`;
+  `Gib ${LLM_ANSWERS} verschiedene Antworten auf die Frage, jede hoechstens ${LLM_MAX_WORDS} Woerter. ` +
+  `Schreib wie ein Teenager im Chat: locker, ehrlich, konkret, alles klein, kein Ausrufezeichen, ruhig ein kleiner Tippfehler oder ein "lol" oder "kp". ` +
+  `Keine Nummerierung, keine Anfuehrungszeichen, keine Emojis, keine Erklaerung, kein Werbetext. ` +
+  `Format: jede Antwort in einer eigenen Zeile, sonst nichts. Beispiel fuer "Was ist dein Lieblingsessen?":\n` +
+  `pizza eig immer, aber nur mit viel käse\nkp, was meine oma kocht halt\ndöner nach der schule lol`;
+const cleanLine = (l) => l.replace(/^\s*(?:[-*•]|\d+[.)]|[a-e][.)])\s*/i, '').replace(/^["„“'`]+|["“”'`]+$/g, '').trim();
+const okLine = (l) => l.length >= 3 && l.length <= 200 && !/^(antwort|answer|hier|beispiel|format)/i.test(l);
 function parseAnswers(text) {
-  return String(text || '')
-    .replace(/<think>[\s\S]*?<\/think>/gi, '') // Denk-Bloecke mancher Modelle entfernen
-    .split(/\r?\n/)
-    .map(l => l.replace(/^\s*(?:[-*•]|\d+[.)]|[a-e][.)])\s*/i, '').replace(/^["„“'`]+|["“”'`]+$/g, '').trim())
-    .filter(l => l.length >= 3 && l.length <= 200 && !/^(antwort|answer|hier)/i.test(l))
-    .filter((l, i, a) => a.indexOf(l) === i)
-    .slice(0, LLM_ANSWERS);
+  const t = String(text || '').replace(/<think>[\s\S]*?<\/think>/gi, '').trim(); // Denk-Bloecke mancher Modelle entfernen
+  let lines = t.split(/\r?\n/).map(cleanLine).filter(okLine);
+  if (lines.length < 2) {
+    // Alles in einer Zeile ("1. ... 2. ..." oder " - ... - ..."): an Nummerierung/Aufzaehlung trennen
+    lines = t.split(/(?:^|\s)\d+[.)]\s+|\s+[-–•]\s+|\s*\|\s*/).map(cleanLine).filter(okLine);
+  }
+  if (LLM_LOWERCASE) lines = lines.map(l => l.toLowerCase().replace(/!+$/, ''));
+  return lines.filter((l, i, a) => a.indexOf(l) === i).slice(0, LLM_ANSWERS);
 }
 async function generateKiOptions(cfg, question) {
   const body = {
