@@ -1,8 +1,8 @@
 #!/bin/bash
-# MENSCH//KI starten (Mac: Doppelklick; Linux: im Terminal ./Start.command)
+# SABINE//MASCHINE starten (Mac: Doppelklick; Linux: im Terminal ./Start.command)
 cd "$(dirname "$0")"
 echo
-echo "  MENSCH//KI wird gestartet ..."
+echo "  SABINE//MASCHINE wird gestartet ..."
 echo
 
 if ! command -v node >/dev/null 2>&1; then

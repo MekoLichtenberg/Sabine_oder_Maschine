@@ -364,3 +364,9 @@ p.llm-status { margin: 10px 0 0; }
 .kichat-row { display: flex; gap: 8px; margin-top: 10px; align-items: stretch; }
 .kichat-row textarea { flex: 1 1 auto; min-width: 0; width: auto; min-height: 48px; resize: none; }
 .kichat-row .btn { width: auto; flex: 0 0 auto; padding-left: 18px; padding-right: 18px; }
+
+/* Langer Schriftzug: auf schmalen Handys kleiner */
+@media (max-width: 520px) {
+  .logo { font-size: 15px; letter-spacing: 1px; }
+  .status { font-size: 12px; }
+}

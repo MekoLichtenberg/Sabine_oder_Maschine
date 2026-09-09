@@ -100,6 +100,8 @@ function send(ws, msg) { if (ws && ws.readyState === ws.OPEN) ws.send(JSON.strin
 
 // Adressen, unter denen andere Geraete im selben Netz die Seite erreichen (virtuelle Adapter ausgefiltert)
 function lanUrls() {
+  // In Docker/LXC sieht der Server nur seine interne Adresse -> per LAN_URL in der .env vorgeben
+  if (process.env.LAN_URL) return process.env.LAN_URL.split(',').map(s => s.trim()).filter(Boolean);
   const skip = /vethernet|virtualbox|vmware|wsl|docker|hyper-v|tailscale|zerotier|loopback/i;
   const out = [];
   for (const [name, addrs] of Object.entries(os.networkInterfaces())) {
@@ -674,7 +676,7 @@ server.listen(PORT, () => {
   const urls = lanUrls();
   console.log('');
   console.log('  =====================================================');
-  console.log('   MENSCH//KI laeuft.');
+  console.log('   SABINE//MASCHINE laeuft.');
   console.log(`   Auf diesem Rechner:   http://localhost:${PORT}`);
   if (urls.length) {
     console.log('   Die anderen tippen im Browser ein:');

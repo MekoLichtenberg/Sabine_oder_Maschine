@@ -1,8 +1,8 @@
 @echo off
-title MENSCH//KI
+title SABINE//MASCHINE
 cd /d "%~dp0"
 echo.
-echo   MENSCH//KI wird gestartet ...
+echo   SABINE//MASCHINE wird gestartet ...
 echo.
 
 where node >nul 2>nul
