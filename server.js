@@ -66,7 +66,10 @@ function newRoom() {
     prefetch: null,         // { entry, promise } fuer die naechste R1-Frage
     kiMode: 'suggest',      // suggest = Mensch waehlt Vorschlaege | chat = Mensch + Chat mit der KI | bot = KI spielt selbst (Bot-Sitz)
     kiChat: new Map(),      // kiId -> [{role, content}] (Chat-Modus, pro Frage)
-    kiBusy: new Set()       // kiIds, fuer die gerade eine Chat-Antwort laeuft
+    kiBusy: new Set(),      // kiIds, fuer die gerade eine Chat-Antwort laeuft
+    history: [],            // Protokoll aller Abstimmungen, wird am Spielende aufgedeckt
+    curEntry: null,
+    botJoinedName: null     // Chat-Modus: Name, unter dem NULL in Runde 2 mitspielt
   };
   rooms.set(code, room);
   return room;
@@ -175,12 +178,15 @@ function stateForClient(room, me) {
       s.roles = [...room.players.values()].map(p => ({ name: p.name, role: p.role, alive: p.alive, isBot: p.isBot }));
     }
   }
+  if (room.phase === 'r2_intro') s.botJoined = room.botJoinedName || null;
   if (room.phase === 'r2_result') {
     s.r2Out = room.r2Out;
     s.aliveCount = living(room).length;
   }
   if (room.phase === 'gameover') {
     s.standings = [...room.players.values()].map(p => ({ name: p.name, alive: p.alive, isBot: p.isBot }));
+    s.history = room.history;
+    s.roles = [...room.players.values()].map(p => ({ name: p.name, role: p.role, isBot: p.isBot }));
   }
   return s;
 }
@@ -430,11 +436,17 @@ function topByVotes(votesMap) {
   return top;
 }
 
+// Protokoll: wer hat fuer wen gestimmt (Namen, damit es am Ende lesbar ist)
+const voteNames = (room, map) => [...map.entries()].map(([v, t]) => ({
+  von: room.players.get(v)?.name || '?', fuer: room.players.get(t)?.name || '?'
+}));
+
 function resolveDay(room) {
+  room.curEntry = { runde: 1, frage: room.question, tag: voteNames(room, room.votes), tagRaus: null, nacht: [], nachtRaus: null };
   const top = topByVotes(room.votes);
   if (top.length) {
     const out = room.players.get(pick(top));
-    if (out) { out.alive = false; room.dayOut = { name: out.name, role: out.role, isBot: out.isBot }; }
+    if (out) { out.alive = false; room.dayOut = { name: out.name, role: out.role, isBot: out.isBot }; room.curEntry.tagRaus = out.name; }
   }
   room.phase = 'r1_night';
   room.kiTargets = new Map();
@@ -445,15 +457,17 @@ function resolveDay(room) {
 }
 
 function resolveNight(room) {
+  if (room.curEntry) room.curEntry.nacht = voteNames(room, room.kiTargets);
   const top = topByVotes(room.kiTargets);
   if (top.length) {
     const out = room.players.get(pick(top));
-    if (out) { out.alive = false; room.nightOut = { name: out.name, role: out.role, isBot: out.isBot }; }
+    if (out) { out.alive = false; room.nightOut = { name: out.name, role: out.role, isBot: out.isBot }; if (room.curEntry) room.curEntry.nachtRaus = out.name; }
   }
   finishR1Round(room);
 }
 
 function finishR1Round(room) {
+  if (room.curEntry) { room.history.push(room.curEntry); room.curEntry = null; }
   room.winner = checkWinR1(room);
   room.phase = 'r1_result';
   broadcast(room);
@@ -462,6 +476,12 @@ function finishR1Round(room) {
 // --- Runde 2 ---
 function startR2(room) {
   room.round = 2;
+  // Chat-Modus: NULL hat in Runde 1 nur souffliert - jetzt spielt es selbst mit
+  if (room.kiMode === 'chat' && !theBot(room)) {
+    const nb = mkBot(room);
+    room.players.set(nb.id, nb);
+    room.botJoinedName = nb.name;
+  }
   for (const p of room.players.values()) { p.alive = true; p.role = 'mensch'; }
   room.phase = 'r2_intro';
   room.winner = null;
@@ -495,6 +515,7 @@ function resolveR2(room) {
   }
   room.r2Out = [];
   for (const { p, v } of out) { p.alive = false; room.r2Out.push({ name: p.name, votes: v }); }
+  room.history.push({ runde: 2, frage: room.question, tag: voteNames(room, room.votes), tagRaus: room.r2Out.map(o => o.name).join(', ') || null, nacht: [], nachtRaus: null });
   const remaining = living(room);
   if (remaining.length <= 1) {
     room.winner = remaining[0]?.name || null;
@@ -514,6 +535,7 @@ wss.on('connection', (ws) => {
   ws.on('message', async (raw) => {
     let m; try { m = JSON.parse(raw); } catch { return; }
 
+    if (m.type === 'ping') return send(ws, { type: 'pong' });
     if (m.type === 'reconnect') {
       for (const r of rooms.values()) {
         for (const p of r.players.values()) {
@@ -639,17 +661,25 @@ wss.on('connection', (ws) => {
     // Wenn der Spieler bereits per Reconnect auf eine neue Verbindung umgezogen ist: alte Verbindung ignorieren
     if (me.ws && me.ws !== ws) return;
 
+    // Sitz bleibt IMMER erhalten, nur als offline markieren -> Reconnect moeglich.
+    // (Handys trennen die Verbindung schon beim Bildschirmsperren - sofortiges Loeschen
+    //  hat frueher den Host-Status wandern lassen.)
+    me.connected = false; me.ws = null;
+    const code = room.code, pid = me.id;
+
     if (room.phase === 'lobby') {
-      room.players.delete(me.id);
-      if (humans(room).length === 0) { rooms.delete(room.code); return; }
-      if (me.isHost) { const nx = humans(room).find(p => p.connected); if (nx) nx.isHost = true; }
-    } else {
-      // Sitz bleibt erhalten, nur als offline markieren -> Reconnect moeglich
-      me.connected = false; me.ws = null;
-      const code = room.code;
-      if (!someoneConnected(room)) {
-        setTimeout(() => { const r = rooms.get(code); if (r && !someoneConnected(r)) rooms.delete(code); }, 5 * 60 * 1000);
-      }
+      // Nach 2 Minuten ohne Rueckkehr den Lobby-Platz aufraeumen
+      setTimeout(() => {
+        const r = rooms.get(code); if (!r || r.phase !== 'lobby') return;
+        const p = r.players.get(pid); if (!p || p.connected) return;
+        r.players.delete(pid);
+        if (p.isHost) { const nx = humans(r).find(x => x.connected); if (nx) { for (const q of r.players.values()) q.isHost = false; nx.isHost = true; } }
+        if (humans(r).length === 0) { rooms.delete(code); return; }
+        broadcast(r);
+      }, 2 * 60 * 1000);
+    }
+    if (!someoneConnected(room)) {
+      setTimeout(() => { const r = rooms.get(code); if (r && !someoneConnected(r)) rooms.delete(code); }, 5 * 60 * 1000);
     }
     broadcast(room);
   });

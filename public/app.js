@@ -12,14 +12,17 @@ const saveSession = (o) => { try { localStorage.setItem(SKEY, JSON.stringify(o))
 const loadSession = () => { try { return JSON.parse(localStorage.getItem(SKEY) || 'null'); } catch { return null; } };
 const clearSession = () => { try { localStorage.removeItem(SKEY); } catch {} };
 
+let lastMsg = Date.now();
 function connect() {
   const proto = location.protocol === 'https:' ? 'wss' : 'ws';
   ws = new WebSocket(`${proto}://${location.host}`);
   ws.onopen = () => {
+    lastMsg = Date.now();
     const s = loadSession();
     if (s && s.token) send({ type: 'reconnect', token: s.token });
   };
   ws.onmessage = (ev) => {
+    lastMsg = Date.now();
     const m = JSON.parse(ev.data);
     if (m.type === 'joined') { me = m.you; saveSession({ token: m.token, code: m.code }); }
     else if (m.type === 'state') { state = m; if (m.phase === 'gameover') clearSession(); render(); }
@@ -28,6 +31,16 @@ function connect() {
   };
   ws.onclose = () => setTimeout(connect, 1000);
 }
+// Wachhund: tote Verbindungen erkennen (Handy-Standby laesst Sockets halboffen zurueck).
+// Kommt 60s lang nichts an, Verbindung kappen -> onclose -> automatischer Reconnect mit Token.
+setInterval(() => {
+  if (!ws || ws.readyState !== 1) return;
+  send({ type: 'ping' });
+  if (Date.now() - lastMsg > 60000) { try { ws.close(); } catch {} }
+}, 20000);
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && ws && ws.readyState === 1) send({ type: 'ping' });
+});
 const send = (m) => ws && ws.readyState === 1 && ws.send(JSON.stringify(m));
 const host = (action, extra) => send({ type: 'host', action, ...(extra || {}) });
 
@@ -391,9 +404,13 @@ function r1Result() {
 
 function r2Intro() {
   const box = el('div', { class: 'intro' });
+  const botLine = state.botJoined
+    ? el('p', { class: 'hint', style: 'color:var(--green);font-family:var(--term);font-size:19px' },
+        '> NULL hat sich unter falschem namen unter euch gemischt. es spielt jetzt selbst mit.')
+    : null;
   const panel = el('div', { class: 'panel' },
     el('div', { class: 'eyebrow', style: 'color:var(--magenta)' }, '// \u26a0 systemmeldung'),
-    box,
+    box, botLine,
     hostBtns(el('button', { class: 'btn btn-danger', onclick: () => host('r2Begin') }, 'Initialisieren \u2192')));
   if (!introTyped) {
     introTyped = true;
@@ -437,6 +454,26 @@ function r2Result() {
       el('button', { class: 'btn', onclick: () => host('end') }, 'Beenden')));
 }
 
+// Aufdroeselung am Ende: wer hat wann fuer wen gestimmt, was hat die KI nachts gewaehlt
+function protocol() {
+  if (!state.history || !state.history.length) return null;
+  const kiNames = new Set((state.roles || []).filter(r => r.role === 'ki').map(r => r.name));
+  const tagName = (n) => kiNames.has(n) ? n + ' \ud83e\udd16' : n;
+  let q1 = 0;
+  const blocks = state.history.map(h => {
+    const head = h.runde === 1 ? `Runde 1 \u00b7 Frage ${++q1}` : 'Runde 2';
+    return el('div', { class: 'proto-block' },
+      el('div', { class: 'proto-head' }, head + ' \u2014 ' + h.frage),
+      ...h.tag.map(v => el('div', { class: 'proto-line' }, `${tagName(v.von)} \u2192 ${tagName(v.fuer)}`)),
+      h.tagRaus ? el('div', { class: 'proto-line out' }, '\u2715 raus: ' + tagName(h.tagRaus)) : el('div', { class: 'proto-line' }, 'niemand raus'),
+      ...h.nacht.map(v => el('div', { class: 'proto-line night' }, `\ud83c\udf19 ${v.von} \ud83e\udd16 l\u00f6schte \u2192 ${v.fuer}`)),
+      h.nachtRaus ? el('div', { class: 'proto-line out night' }, '\u2715 nachts verschwunden: ' + h.nachtRaus) : null);
+  });
+  const box = el('div', { class: 'proto', hidden: true }, ...blocks);
+  const btn = el('button', { class: 'btn', style: 'margin-top:12px', onclick: () => { box.hidden = !box.hidden; btn.textContent = box.hidden ? 'Aufdr\u00f6selung anzeigen' : 'Aufdr\u00f6selung verbergen'; } }, 'Aufdr\u00f6selung anzeigen');
+  return el('div', {}, btn, box);
+}
+
 function gameover() {
   const winners = state.standings.filter(s => s.alive);
   return el('div', { class: 'panel' },
@@ -445,7 +482,8 @@ function gameover() {
       winners.length ? winners.map(w => w.name).join(' & ') + ' \u00dcBERLEBT' : 'SPIEL BEENDET'),
     el('ul', { class: 'scoreboard' }, ...state.standings.map(s =>
       el('li', { class: s.alive ? 'win' : 'dead' }, (s.alive ? '\u25b6 ' : '\u00b7 ') + s.name + (s.isBot ? '  \ud83e\udd16 (echter Bot)' : '')))),
-    el('button', { class: 'btn btn-primary', onclick: () => { clearSession(); location.reload(); } }, 'Neues Spiel'));
+    protocol(),
+    el('button', { class: 'btn btn-primary', style: 'margin-top:12px', onclick: () => { clearSession(); location.reload(); } }, 'Neues Spiel'));
 }
 
 /* ---------- Render-Dispatcher ---------- */

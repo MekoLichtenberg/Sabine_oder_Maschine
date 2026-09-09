@@ -106,6 +106,10 @@ while (true) {
 }
 
 host().send({ type: 'host', action: 'startR2' }); await waitPhase('r2_intro');
+if (MODE === 'chat') {
+  assert(host().state.players.length === N + 1, 'Chat-Modus: NULL sollte in R2 als Bot-Sitz beitreten');
+  assert(host().state.botJoined, 'Chat-Modus: botJoined-Hinweis fehlt im Intro');
+}
 host().send({ type: 'host', action: 'r2Begin' }); await waitPhase('r2_answer');
 round = 0;
 while (true) {
@@ -126,6 +130,11 @@ while (true) {
   if (round > 15) throw new Error('R2 endet nicht');
 }
 log('\nGAMEOVER standings:', host().state.standings);
+log('Protokoll-Eintraege:', (host().state.history || []).length);
+assert((host().state.history || []).length > 0, 'Protokoll sollte am Ende da sein');
+assert(host().state.history.some(h => h.runde === 1 && h.tag.length), 'R1-Stimmen fehlen im Protokoll');
+assert(host().state.history.some(h => h.runde === 1 && h.nacht.length) || !host().state.history.some(h => h.nachtRaus), 'Nacht-Wahlen fehlen im Protokoll');
+assert(host().state.roles?.length, 'Rollen fehlen im Gameover');
 if (MODE === 'bot') assert(host().state.standings.some(s => s.isBot), 'Endstand sollte den Bot markieren');
 const errs = bots.flatMap(b => b.log.filter(m => m.type === 'error'));
 log('Fehlermeldungen:', errs);
