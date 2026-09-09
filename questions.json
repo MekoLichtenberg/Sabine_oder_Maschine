@@ -1,0 +1,167 @@
+{
+  "names": [
+    "Brigitte", "Gabi", "Reinhardt", "Alfons", "Helga", "Hartmut", "Waltraud",
+    "Dieter", "Roswitha", "Friedhelm", "Sieglinde", "Horst", "Edeltraud",
+    "Günther", "Hildegard", "Manfred", "Gerlinde", "Bernd", "Ingrid",
+    "Klaus-Dieter", "Eckhard", "Brunhilde", "Detlef", "Annegret", "Volker",
+    "Lieselotte", "Norbert", "Waltraut", "Hubertus", "Irmgard"
+  ],
+  "round1": [
+    {
+      "q": "Was würdest du tun, wenn du einen Tag lang unsichtbar wärst?",
+      "ki": [
+        "puh schwere frage, ich glaub ich würd einfach mal gucken was passiert wenn keiner mich sieht",
+        "vermutlich ins kino schleichen lol aber auch nur weil mans halt machen kann",
+        "ich würd wahrscheinlich leuten zuhören, ist interessant zu wissen was andere so denken",
+        "kommt drauf an ehrlich, villeicht einfach mal irgendwo in ruhe nachdenken",
+        "schwierig zu sagen, aber spannend wärs auf jeden fall finde ich"
+      ]
+    },
+    {
+      "q": "Welches Tier wärst du gern und warum?",
+      "ki": [
+        "vermutlich ne katze, die haben es echt entspannt den ganzen tag",
+        "ich denke ein vogel wär cool, einfach wegfliegen können hat schon was",
+        "schwer zu sagen, jedes tier hat ja so seine vor und nachteile",
+        "villeicht delfin, die wirken irgendwie immer ausgeglichen",
+        "hund glaub ich, weil die einfach treu sind und das ist mir wichtig"
+      ]
+    },
+    {
+      "q": "Was nervt dich an Montagen am meisten?",
+      "ki": [
+        "ehrlich gesagt nicht viel, montag ist halt auch nur ein tag wie jeder andere",
+        "der wecker morgens, das ist denke ich für die meisten das schlimmste",
+        "dass das wochenende vorbei is, aber das gehört wohl einfach dazu",
+        "kommt drauf an wie das wochenende war würd ich sagen",
+        "villeicht das früh aufstehen, aber man gewöhnt sich ja dran"
+      ]
+    },
+    {
+      "q": "Wenn du eine Superkraft hättest, welche wäre das?",
+      "ki": [
+        "teleportieren fänd ich praktisch, spart einfach total viel zeit",
+        "schwierig, es gibt ja so viele optionen die alle ihre vorteile haben",
+        "villeicht gedanken lesen, auch wenn das bestimmt anstrengend wär",
+        "fliegen klingt erstmal cool aber ich bin mir nicht ganz sicher",
+        "zeit anhalten denke ich, dann könnte man alles in ruhe machen"
+      ]
+    },
+    {
+      "q": "Was ist dein Lieblingsessen?",
+      "ki": [
+        "pizza ist immer gut, das mögen ja eigentlich fast alle",
+        "schwer zu sagen, kommt auch immer auf die stimmung an finde ich",
+        "villeicht nudeln, weil man die so vielseitig zubereiten kann",
+        "döner würd ich sagen, gibt es ja überall und schmeckt meistens",
+        "irgendwas mit kartoffeln, das ist so ein klassiker bei mir"
+      ]
+    },
+    {
+      "q": "Wohin würdest du am liebsten reisen?",
+      "ki": [
+        "japan fänd ich interessant, die kultur ist ja ziemlich anders als hier",
+        "schwierige frage, es gibt so viele schöne orte auf der welt",
+        "villeicht irgendwo ans meer, das ist immer entspannend wie ich finde",
+        "ich denke italien, wegen dem essen und dem wetter halt",
+        "kommt drauf an mit wem, alleine oder mit freunden macht ja n unterschied"
+      ]
+    },
+    {
+      "q": "Was ist dein größtes Talent, das kaum jemand kennt?",
+      "ki": [
+        "schwer zu sagen, ich glaub ich bin einfach in vielen sachen so mittel",
+        "villeicht dass ich mir gut namen merken kann, aber das fällt selten auf",
+        "kommt drauf an was man als talent zählt ehrlich gesagt",
+        "ich denke zuhören, auch wenn das jetzt nicht spektakulär klingt",
+        "puh keine ahnung, so richtig verstecktes talent hab ich glaub ich nicht"
+      ]
+    },
+    {
+      "q": "Welchen Trend verstehst du bis heute nicht?",
+      "ki": [
+        "ganz viele ehrlich, aber ich will auch nicht wie ausm letzten jahrhundert klingen",
+        "villeicht diese ganzen kurzen videos, aber vermutlich bin ich einfach zu alt dafür",
+        "schwer zu sagen, trends kommen und gehen ja eh ständig",
+        "kommt drauf an welchen du meinst, es gibt da echt viele",
+        "ich glaub die meisten, ich hör irgendwann auf mitzukommen"
+      ]
+    },
+    {
+      "q": "Was würdest du machen, wenn heute plötzlich frei wäre?",
+      "ki": [
+        "vermutlich erstmal ausschlafen, das braucht man ja auch mal",
+        "kommt aufs wetter an, drinnen oder draußen macht schon n unterschied",
+        "villeicht einfach spontan was unternehmen, mal gucken was sich ergibt",
+        "schwer zu sagen, wahrscheinlich nix produktives und das ist auch ok",
+        "ich denke einfach mal nix planen und den tag treiben lassen"
+      ]
+    },
+    {
+      "q": "Welches Gericht kannst du auf keinen Fall kochen?",
+      "ki": [
+        "puh einiges, aber irgendwas mit soufflé geht bei mir garantiert schief",
+        "schwer zu sagen, ich probier auch selten was kompliziertes",
+        "villeicht auflauf, das wird bei mir immer irgendwie matschig",
+        "kommt drauf an, backen ist generell nicht so mein ding",
+        "ehrlich fast alles was mehr als drei schritte hat"
+      ]
+    },
+    {
+      "q": "Was ist das Nervigste an Warteschlangen?",
+      "ki": [
+        "dass die andere schlange immer schneller geht, das ist echt jedesmal so",
+        "villeicht das ungewisse, man weiß ja nie wie lang es dauert",
+        "schwer zu sagen, aber am ende hat man eh keine wahl",
+        "kommt drauf an wie eilig mans hat würd ich sagen",
+        "ich glaub einfach das rumstehen an sich, das zieht sich"
+      ]
+    },
+    {
+      "q": "Wenn dein Leben ein Film wäre, welches Genre?",
+      "ki": [
+        "villeicht so ne ruhige komödie, nix zu aufregendes ehrlich gesagt",
+        "schwer zu sagen, mischung aus allem vermutlich",
+        "kommt auf den tag an, mal drama mal comedy",
+        "ich denke alltagsgeschichte, klingt langweilig ist aber ehrlich",
+        "puh keine ahnung, auf jeden fall kein action"
+      ]
+    },
+    {
+      "q": "Was hebst du auf, obwohl du es nie benutzt?",
+      "ki": [
+        "so kabel von geräten die ich längst nicht mehr hab, klassiker",
+        "villeicht verpackungen, man denkt ja immer die könnten nochmal nützlich sein",
+        "schwer zu sagen, bei mir sammelt sich einfach vieles an",
+        "kommt drauf an, aber alte tüten hab ich definitiv zu viele",
+        "ich glaub schrauben und so kleinkram, weggeschmissen wird das nie"
+      ]
+    },
+    {
+      "q": "Worüber kannst du dich richtig aufregen?",
+      "ki": [
+        "wenn leute sich nicht anstellen können, aber das ist villeicht kleinlich",
+        "schwer zu sagen, im grunde reg ich mich über kleinigkeiten am meisten auf",
+        "kommt drauf an wie der tag war ehrlich gesagt",
+        "villeicht unpünktlichkeit, das nervt mich schon ziemlich",
+        "ich glaub über sachen die man eh nicht ändern kann, unlogisch aber so isses"
+      ]
+    }
+  ],
+  "round2": [
+    "Beschreibe deinen perfekten Sonntag.",
+    "Was macht einen guten Freund aus?",
+    "Wovor hast du am meisten Respekt?",
+    "Was würdest du mit ganz viel Geld machen?",
+    "Was ist das Beste an den Sommerferien?",
+    "Welche Erfindung findest du am wichtigsten?",
+    "Was würdest du deinem 15-jährigen Ich raten?",
+    "Welche kleine Sache macht dich sofort glücklich?",
+    "Was wird deiner Meinung nach überbewertet?",
+    "Wenn du einen Feiertag erfinden dürftest, welchen?",
+    "Was ist deine schönste Erinnerung aus der Kindheit?",
+    "Welche Fähigkeit würdest du gern über Nacht lernen?",
+    "Was macht einen perfekten Sommerabend aus?",
+    "Worauf könntest du im Alltag nicht verzichten?"
+  ]
+}
